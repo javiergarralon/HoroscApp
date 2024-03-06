@@ -1,17 +1,65 @@
 package com.bakanito.horoscapp.ui.horoscope
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bakanito.horoscapp.R
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bakanito.horoscapp.databinding.FragmentHoroscopeBinding
-import com.bakanito.horoscapp.databinding.FragmentPalmistryBinding
+import com.bakanito.horoscapp.ui.horoscope.adapter.HoroscopeAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HoroscopeFragment : Fragment() {
+
+    private val horoscopeViewModel by viewModels<HoroscopeViewModel>()
+    private lateinit var horoscopeAdapter: HoroscopeAdapter
+
     private var _binding: FragmentHoroscopeBinding? = null
     private val binding get() = _binding!!
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initUI()
+    }
+
+    private fun initUI() {
+        initRecyclerView()
+        initUIState()
+    }
+
+    private fun initRecyclerView() {
+        horoscopeAdapter =
+            HoroscopeAdapter(onItemSelected = {
+                Toast.makeText(context, getString(it.name), Toast.LENGTH_LONG).show()
+            })
+
+        binding.rvHoroscope.apply {
+            layoutManager = GridLayoutManager(context, 2)
+            adapter = horoscopeAdapter
+        }
+    }
+
+    private fun initUIState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                horoscopeViewModel.horoscope.collect() {
+                    //Cambio en Horoscope
+                    horoscopeAdapter.updateList(it)
+                }
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -41,11 +43,16 @@ android {
 dependencies {
 
     val nav_version = "2.7.7"
+    val daggerHilt_version = "2.48"
 
     // NavComponent
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
+
+    //DaggerHilt
+    implementation("com.google.dagger:hilt-android:$daggerHilt_version")
+    kapt("com.google.dagger:hilt-compiler:$daggerHilt_version")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
