@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -44,6 +45,7 @@ dependencies {
 
     val nav_version = "2.7.7"
     val daggerHilt_version = "2.48"
+    val retrofit_version = "2.9.0"
 
     // NavComponent
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
@@ -53,6 +55,11 @@ dependencies {
     //DaggerHilt
     implementation("com.google.dagger:hilt-android:$daggerHilt_version")
     kapt("com.google.dagger:hilt-compiler:$daggerHilt_version")
+
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
+
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
