@@ -25,7 +25,7 @@
         app:layout_constraintTop_toBottomOf="@id/ivDetail" />
 
     <TextView
-        android:id="@+id/ivBody"
+        android:id="@+id/tvBody"
         style="@style/Body"
         android:layout_width="0dp"
         android:layout_height="0dp"
