@@ -35,7 +35,7 @@ android {
         getByName("debug") {
             isDebuggable = true
             resValue("string", "bakanito", "[DEBUG] HoroscApp")
-            buildConfigField("String", "BASE_URL", "\"https://newastro-debug.vercel.app/\"")
+            buildConfigField("String", "BASE_URL", "\"https://newastro.vercel.app/\"")
         }
     }
     compileOptions {
@@ -56,6 +56,7 @@ dependencies {
     val nav_version = "2.7.7"
     val daggerHilt_version = "2.48"
     val retrofit_version = "2.9.0"
+    val cameraVersion = "1.2.3"
 
     // NavComponent
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
@@ -70,6 +71,13 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
     implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
     implementation("com.squareup.okhttp3:logging-interceptor:4.3.1")
+
+    //Camera X
+    implementation ("androidx.camera:camera-core:${cameraVersion}")
+    implementation ("androidx.camera:camera-camera2:${cameraVersion}")
+    implementation ("androidx.camera:camera-lifecycle:${cameraVersion}")
+    implementation ("androidx.camera:camera-view:${cameraVersion}")
+    implementation ("androidx.camera:camera-extensions:${cameraVersion}")
 
 
     implementation("androidx.core:core-ktx:1.9.0")
